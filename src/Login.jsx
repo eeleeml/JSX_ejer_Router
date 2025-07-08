@@ -2,9 +2,7 @@ import { useState } from 'react';
 import { Button, Modal, Form, InputGroup, Row, Col } from 'react-bootstrap';
 import { Navigate, useNavigate } from "react-router-dom";
 
-
-
-
+import usuarios from './data/usuarios';
 
 
 function Login() {
@@ -20,10 +18,6 @@ function Login() {
         password: ""
     }
 
-    const validUser = {
-        user: "admin",
-        password: "1234"
-    }
 
     const [user, setUser] = useState(defaultUser)
 
@@ -48,15 +42,20 @@ function Login() {
 
     function validateForm() {
 
-        if (user.user != validUser.user) {
+        let checkUser = usuarios.filter((valUser) => user.user == valUser.user)
+
+        if(checkUser.length <1){ //if (user.user != validUser.user)
             setMensError("El usuario no es válido");
             handleShow();
-        } else if (user.password != validUser.password) {
+        }else if(checkUser[0].password != user.password){ // else if (user.password != validUser.password) {
             setMensError("La contraseña no es válida");
             handleShow();
-
         } else {
-            navigate("/admin?auth=true", { replace: true });
+            if(user.user == 'admin'){
+                navigate("/admin?auth=true", { replace: true });
+            }else{
+                navigate("/perfil?id="+checkUser[0].id, { replace: true });
+            }
         }
 
     }

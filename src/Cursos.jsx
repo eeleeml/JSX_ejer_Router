@@ -76,6 +76,7 @@ function Cursos() {
                             <Button variant="primary">
                                 <Link to={`/cursos/${curso.id}`} className="text-white">Ver Detalles</Link>
                             </Button>
+                            
                         </Card.Footer>
                     </Card>
                 </Col>
