@@ -15,66 +15,46 @@ function Cursos() {
     function reLoadCursos(newCat, newNiv) {
         //const newUrl = `/cursos?${newCat ? `cat=${newCat}` :  ''}&${newNiv ? `niv=${newNiv}` : ''}`;
         //navigate(newUrl, { replace: true });
-        
+
         const newParams = new URLSearchParams(searchParams);
         newParams.set('cat', newCat ? newCat : "");
         newParams.set('niv', newNiv ? newNiv : "");
-        setSearchParams(newParams); 
-        
+        setSearchParams(newParams);
+
     }
 
     const [selCat, setSelCat] = useState("Todos");
     const [selNivel, setSelNivel] = useState("Todos");
 
+    const catLabels = {
+        "": "Todos",
+        null: "Todos",
+        frontend: "Frontend",
+        backend: "Backend",
+        herramientas: "Herramientas",
+        devops: "Devops"
+    };
+
+    const nivLabels = {
+        "": "Todos",
+        null: "Todos",
+        basico: "Básico",
+        intermedio: "Intermedio",
+        avanzado: "Avanzado"
+    };
+
     useEffect(() => {
-        switch (cat) {
-            case null:
-            case "":
-                setSelCat("Todos");
-                break;
-            case "frontend":
-                setSelCat("Frontend");  
-                break;
-            case "backend":
-                setSelCat("Backend");
-                break;
-            case "herramientas":
-                setSelCat("Herramientas");
-                break;
-            case "devops":
-                setSelCat("Devops");
-                break;
-            default:
-                setSelCat("Todos");
-                break;
-        }
-        switch (niv) {
-            case null:
-            case "":
-                setSelNivel("Todos");
-                break;
-            case "basico":
-                setSelNivel("Básico");
-                break;
-            case "intermedio":
-                setSelNivel("Intermedio");
-                break;
-            case "avanzado":
-                setSelNivel("Avanzado");
-                break;
-            default:
-                setSelNivel("Todos");
-                break;
-        }
+        setSelCat(catLabels.hasOwnProperty(cat) ? catLabels[cat] : "Todos");
+        setSelNivel(nivLabels.hasOwnProperty(niv) ? nivLabels[niv] : "Todos");
     }, [cat, niv]);
 
     const listaCursos = cursos
-        .filter((curso) => cat === null || cat === "" || curso.categoria == cat)
-        .filter((curso) => niv === null || niv === "" || curso.nivel == niv)
+        .filter((curso) => cat === null || cat === "" || curso.categoria === cat)
+        .filter((curso) => niv === null || niv === "" || curso.nivel === niv)
         .map((curso) => {
             return (
-                <Col sm={6} md={4} lg={3} key={curso.id}> 
-                    <Card key={curso.id} className="mb-3 h-100">
+                <Col sm={6} md={4} lg={3} key={curso.id}>
+                    <Card  className="mb-3 h-100">
                         <Card.Body>
                             <Card.Title>{curso.titulo}</Card.Title>
                         </Card.Body>
@@ -82,7 +62,7 @@ function Cursos() {
                             <Button variant="primary">
                                 <Link to={`/cursos/${curso.id}`} className="text-white">Ver Detalles</Link>
                             </Button>
-                            
+
                         </Card.Footer>
                     </Card>
                 </Col>
@@ -95,23 +75,23 @@ function Cursos() {
             <Row className="mb-3">
                 <Col sm={12} md={6} lg={6}>
                     <h5>Categoría</h5>
-                    <DropdownButton id="dropdown-item-button" title={selCat}>
-                        <Dropdown.Item as="button" onClick={() => { reLoadCursos(null,niv); setSelCat('Todos') }}>Todos</Dropdown.Item>
+                    <DropdownButton id="dropdown-item-button-cat" title={selCat}>
+                        <Dropdown.Item as="button" onClick={() => { reLoadCursos(null, niv); setSelCat('Todos') }}>Todos</Dropdown.Item>
                         <Dropdown.Divider />
-                        <Dropdown.Item as="button" onClick={() => { reLoadCursos('frontend',niv); setSelCat('Frontend') }}>Frontend</Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={() => { reLoadCursos('backend',niv); setSelCat('Backend') }}>Backend</Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={() => { reLoadCursos('herramientas',niv); setSelCat('Herramientas') }}>Herramientas</Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={() => { reLoadCursos('devops',niv); setSelCat('Devops') }}>Devops</Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={() => { reLoadCursos('frontend', niv); setSelCat('Frontend') }}>Frontend</Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={() => { reLoadCursos('backend', niv); setSelCat('Backend') }}>Backend</Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={() => { reLoadCursos('herramientas', niv); setSelCat('Herramientas') }}>Herramientas</Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={() => { reLoadCursos('devops', niv); setSelCat('Devops') }}>Devops</Dropdown.Item>
                     </DropdownButton>
                 </Col>
                 <Col sm={12} md={6} lg={6}>
                     <h5>Nivel</h5>
-                    <DropdownButton id="dropdown-item-button" title={selNivel}>
-                        <Dropdown.Item as="button" onClick={() => { reLoadCursos(cat,null); setSelNivel('Todos') }}>Todos</Dropdown.Item>
+                    <DropdownButton id="dropdown-item-button-niv" title={selNivel}>
+                        <Dropdown.Item as="button" onClick={() => { reLoadCursos(cat, null); setSelNivel('Todos') }}>Todos</Dropdown.Item>
                         <Dropdown.Divider />
-                        <Dropdown.Item as="button" onClick={() => { reLoadCursos(cat,'basico'); setSelNivel('Básico') }}>Básico</Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={() => { reLoadCursos(cat,'intermedio'); setSelNivel('Intermedio') }}>Intermedio</Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={() => { reLoadCursos(cat,'avanzado'); setSelNivel('Avanzado') }}>Avanzado</Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={() => { reLoadCursos(cat, 'basico'); setSelNivel('Básico') }}>Básico</Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={() => { reLoadCursos(cat, 'intermedio'); setSelNivel('Intermedio') }}>Intermedio</Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={() => { reLoadCursos(cat, 'avanzado'); setSelNivel('Avanzado') }}>Avanzado</Dropdown.Item>
                     </DropdownButton>
                 </Col>
             </Row>
