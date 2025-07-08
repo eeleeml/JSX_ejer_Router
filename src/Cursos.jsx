@@ -13,8 +13,14 @@ function Cursos() {
     const navigate = useNavigate();
 
     function reLoadCursos(newCat, newNiv) {
-        const newUrl = `/cursos?${newCat ? `cat=${newCat}` :  ''}&${newNiv ? `niv=${newNiv}` : ''}`;
-        navigate(newUrl, { replace: true });
+        //const newUrl = `/cursos?${newCat ? `cat=${newCat}` :  ''}&${newNiv ? `niv=${newNiv}` : ''}`;
+        //navigate(newUrl, { replace: true });
+        
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set('cat', newCat ? newCat : "");
+        newParams.set('niv', newNiv ? newNiv : "");
+        setSearchParams(newParams); 
+        
     }
 
     const [selCat, setSelCat] = useState("Todos");
