@@ -37,15 +37,15 @@ function App() {
     <>
       <Navbar style={estiloNavbar} expand="lg" className="bg-body-tertiary">
         <Container>
-          <Link className="navbar-brand" to="/">{getTranslation((getLanguage())).home}</Link>
+          <Link className="navbar-brand" to="/">{getTranslation("home")}</Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              {<Link className="nav-link" to="/recomendar">{getTranslation((getLanguage())).rCourses}</Link>}
-              <Link className="nav-link" to="/cursos">{getTranslation((getLanguage())).courseList}</Link>
-              <Link className="nav-link ms-3" to="/admin">{getTranslation((getLanguage())).admin}</Link>
-              <Link className="nav-link ms-3" to="/perfil">{getTranslation((getLanguage())).perfil}</Link>
-              <Link className="nav-link ms-3" to="/login">{getTranslation((getLanguage())).login}</Link>
+              {<Link className="nav-link" to="/recomendar">{getTranslation("rCourses")}</Link>}
+              <Link className="nav-link" to="/cursos">{getTranslation("courseList")}</Link>
+              <Link className="nav-link ms-3" to="/admin">{getTranslation("admin")}</Link>
+              <Link className="nav-link ms-3" to="/perfil">{getTranslation("perfil")}</Link>
+              <Link className="nav-link ms-3" to="/login">{getTranslation("login")}</Link>
             </Nav>
             <Nav className="justify-content-end">
               <DropdownButton variant={getTheme() == 'light' ? 'outline-dark':'dark'} id="dropdown-item-button" title={getTheme()}  >
@@ -62,7 +62,7 @@ function App() {
       </Navbar>
 
       <br />
-      <Container style={estiloModo}>
+      <Container style={estiloModo} className={getTheme()}>
         <Outlet />
       </Container>
 

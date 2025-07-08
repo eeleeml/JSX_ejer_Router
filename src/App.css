@@ -4,6 +4,20 @@
   padding: 2rem;
   text-align: center;
 }
+.dark{
+  background-color: '#000000';
+  color: '#f8f9fa';
+  padding-left: '50px';
+  padding-right: '50px',;
+  border-bottom: '5px solid #dee2e6'
+}
+.light{
+  background-color: '#f8f9fa';
+  color: '#000000';
+  padding-left: '50px';
+  padding-right: '50px',;
+  border-bottom: '5px solid #dee2e6'
+}
 
 .logo {
   height: 6em;

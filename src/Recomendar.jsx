@@ -37,39 +37,28 @@ function Recomendar() {
         }
     }
 
-    const [listaCursosCategoria, setListaCursosCategoria] = useState([]);
-    const [listaCursosCategoriaMostrar, setListaCursosCategoriaMostrar] = useState([]);
+    const [listaCursosCategoriaRecomendados, setListaCursosCategoriaRecomendados] = useState([]);
 
     const [arbol,setArbol] = useState([]);
 
+    const catLabels = {
+        "": "Todos",
+        null: "Todos",
+        frontend: "Frontend",
+        backend: "Backend",
+        herramientas: "Herramientas",
+        devops: "Devops"
+    };
+
     useEffect(() => {
-        switch (cat) {
-            case null:
-            case "":
-                setSelCat("Todos");
-                break;
-            case "frontend":
-                setSelCat("Frontend");
-                break;
-            case "backend":
-                setSelCat("Backend");
-                break;
-            case "herramientas":
-                setSelCat("Herramientas");
-                break;
-            case "devops":
-                setSelCat("Devops");
-                break;
-            default:
-                setSelCat("Todos");
-                break;
-        }
+
+
+        setSelCat(catLabels.hasOwnProperty(cat) ? catLabels[cat] : "Todos");
 
         let newListaCursosCategoria = cursos
                 .filter((curso) => cat === null || cat === "" || curso.categoria == cat)
 
-        setListaCursosCategoria(newListaCursosCategoria);
-        setListaCursosCategoriaMostrar(listaCursosCategoria);
+        setListaCursosCategoriaRecomendados(newListaCursosCategoria);
 
 
         // para cada curso, obtener horas, valor, curso y acumular lo de los requeridos
@@ -83,16 +72,7 @@ function Recomendar() {
 
     }, [cat]);
 
-
-    // ordenar por valor
-    function ordenarValor(cursoA, CursoB) {
-        if (cursoA.valor > CursoB.valor) { return -1; }
-        else if (cursoA.valor < CursoB.valor) { return 1; }
-        return 0;
-    }
-
     function findCursoByID(id) {
-
         return cursos.filter((curso) => curso.id == id)[0]
     }
 
@@ -170,12 +150,12 @@ function Recomendar() {
             }
         }
 
-        setListaCursosCategoriaMostrar(combMax.cursos);
+        setListaCursosCategoriaRecomendados(combMax.cursos);
         console.log("recomendando ", combMax.cursos);
 
     }
 
-    const listaCursos = listaCursosCategoriaMostrar
+    const listaCursos = listaCursosCategoriaRecomendados
         .map((curso) => {
             return (
                 <Col sm={6} md={4} lg={3} key={curso.id}>

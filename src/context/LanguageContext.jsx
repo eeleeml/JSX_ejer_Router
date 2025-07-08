@@ -26,13 +26,11 @@ export const LanguageContext = createContext(undefined);
 
 export const LanguageProvider = ({ children }) => {
 
-  const [traduccion, setTraduccion] = useState(traducciones.es);
   const [language, setLanguage] = useState("en");
   
-
   const initialValue = {
-    getTranslation: (key) => traducciones[key],
-    setNewLanguage: (newLanguage) => {setLanguage(newLanguage); setTraduccion(traducciones[newLanguage])},
+    getTranslation: (key) => traducciones[language][key],
+    setNewLanguage: (newLanguage) => {setLanguage(newLanguage)},
     getLanguage: () => language
   }
 
